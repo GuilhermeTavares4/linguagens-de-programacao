@@ -1,24 +1,38 @@
-/******************************************************************************
-
-                            Online C Compiler.
-                Code, Compile, Run and Debug C program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 
 int main()
 {
-    char frase[200] = "";
-    char palavra[20] = "";
+    char phrase[200] = "";
+    char word[20] = "";
     printf("Digite uma frase: ");
-    fgets(frase, sizeof(frase), stdin);
+    fgets(phrase, sizeof(phrase), stdin);
     printf("Digite uma palavra: ");
-    scanf("%s", &palavra);
-    int string_length = strlen(palavra);
-    printf("%d", string_length);
+    scanf("%s", &word);
+    int word_length = strlen(word);
+    int phrase_length = strlen(phrase);
+    int count = 0;
+    int repeated_count = 0;
+    while (count < phrase_length)
+    {
+        char substring[word_length];
+        int substring_count = 0;
+        int phrase_substring_index = count;
+        
+        while (substring_count < word_length)
+        {
+            substring[substring_count] = phrase[phrase_substring_index];
+            substring_count++;
+            phrase_substring_index++;
+        }
+        
+        printf("%s \n", substring);
+        if (strcmp(substring, word) == 0){
+            repeated_count++;
+        }
+        
+        count++;
+    }
     
-    
+    printf("A palavra repetiu %d vezes.", repeated_count);
 }
