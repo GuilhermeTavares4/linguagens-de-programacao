@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+void main()
 {
     float fahrenheit_temperature = 0;
     printf("Digite uma temperatura em Farenheit: ");

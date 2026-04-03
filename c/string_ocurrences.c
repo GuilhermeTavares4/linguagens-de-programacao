@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+void main()
 {
     char phrase[200] = "";
     char word[20] = "";
