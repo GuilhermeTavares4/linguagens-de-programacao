@@ -26,17 +26,30 @@ Node* adicionar(Node* lista){
     scanf("%lf", &novo->produto.preco);
     
     novo->next = lista;
+    printf("Produto adicionado.\n");
     return novo;
 }
 
 
 void exibir_lista(Node* lista){
+    if (lista == NULL)
+    {
+        printf("Não há nenhum produto em estoque.\n");
+        return;
+    }
+    
     Node* atual = lista;
+    printf("Lista dos produtos:\n");
     while (atual != NULL)
     {
-        printf("%s - ", atual->produto.nome);
-        printf("%d - ", atual->produto.codigo);
-        printf("%.2f\n", atual->produto.preco);
+        printf("=============\n");
+        printf(
+            "Produto: %s\nCódigo: %d\nPreço: R$%.2f\n", 
+            atual->produto.nome, 
+            atual->produto.codigo, 
+            atual->produto.preco
+        );
+        printf("=============\n");
         atual = atual->next;
     }
 }
@@ -44,19 +57,25 @@ void exibir_lista(Node* lista){
 
 void busca(Node* lista){
     char nome[30];
-    printf("Digite um nome de um produto: ");
+    printf("Digite o nome de um produto: ");
     scanf("%s", &nome);
+    printf("\n");
     int foi_encontrado = 0;
     Node* atual = lista;
     while (atual != NULL)
     {
         if (strcmp(atual->produto.nome, nome) == 0)
-        {
-            printf("Produto encontrado:\n");
-            printf("%s - ", atual->produto.nome);
-            printf("%d - ", atual->produto.codigo);
-            printf("%.2f\n", atual->produto.preco);
+        {   
             foi_encontrado = 1;
+            printf("Produto encontrado:\n");
+            printf("=============\n");
+            printf(
+            "Produto: %s\nCódigo: %d\nPreço: R$%.2f\n", 
+                atual->produto.nome, 
+                atual->produto.codigo, 
+                atual->produto.preco
+            );
+            printf("=============\n");
         }
         
         atual = atual->next;
@@ -64,7 +83,17 @@ void busca(Node* lista){
     
     if (foi_encontrado == 0)
     {
-        printf("Nenhum produto com o nome %s foi encontrado.", nome);
+        printf("Nenhum produto com o nome %s foi encontrado.\n", nome);
+    }
+}
+
+
+void libera(Node* lista){
+    Node* temp = lista;
+    while (lista != NULL)
+    {
+        lista = lista->next;
+        free(temp);
     }
 }
 
@@ -72,7 +101,35 @@ void busca(Node* lista){
 void main()
 {
     Node* lista = NULL;
-    lista = adicionar(lista);
-    lista = adicionar(lista);
-    busca(lista);
+    while (1)
+    {
+        printf("Digite uma ação (adicionar, buscar, exibir ou sair): ");
+        char input[30];
+        scanf("%s", &input);
+        printf("\n");
+
+        if (strcmp(input, "adicionar") == 0)
+        {
+            lista = adicionar(lista);   
+        } 
+        else if (strcmp(input, "buscar") == 0)
+        {
+            busca(lista);
+        }
+        else if (strcmp(input, "exibir") == 0)
+        {
+            exibir_lista(lista);
+        }
+        else if (strcmp(input, "sair") == 0)
+        {
+            libera(lista);
+            lista = NULL;
+            printf("Memória liberada.\n");
+            break;
+        }
+        else 
+        {
+            printf("Comando não encontrado.\n");
+        }
+    }
 }
