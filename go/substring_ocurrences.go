@@ -19,7 +19,7 @@ func main() {
     var word string
     var substr_count int = 0
 
-		reader := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 
     fmt.Print("Digite uma frase: ")
     phrase, _ = reader.ReadString('\n')
